@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-ejercicio-http-spotify"
+    }
+  },
+  "defaultProject": "angular-ejercicio-http-spotify",
+  "cli": {
+    "analytics": false
+  }
 }
