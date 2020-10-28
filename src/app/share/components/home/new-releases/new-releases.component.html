@@ -1,17 +1,16 @@
-
 <div class="container">
   <div class="card-deck">
 
     <div class="row row-cols-1 row-cols-md-3">
-      <div class="col mb-4" *ngFor="let country of countries">
+      <div class="col mb-4" *ngFor="let itemAlbum of albums">
         <div class="card">
           <div class="">
-            <img src="{{country.flag}}" class="card-img" alt="..." [routerLink]="['/new-releases', country.alpha2Code]">
+            <img src="{{itemAlbum.images[0].url}}" class="card-img" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{country.name}}</h5>
-              <p class="card-text">{{country.alpha2Code}}</p>
+              <h5 class="card-title">{{itemAlbum.name}}</h5>
+              <p class="card-text" *ngFor="let artist of itemAlbum.artists">{{artist.name}}</p>
             </div>
           </div>
         </div>

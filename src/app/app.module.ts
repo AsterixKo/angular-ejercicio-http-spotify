@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './share/components/home/home.component';
+import { NewReleasesComponent } from './share/components/home/new-releases/new-releases.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NewReleasesComponent
   ],
   imports: [
     BrowserModule,

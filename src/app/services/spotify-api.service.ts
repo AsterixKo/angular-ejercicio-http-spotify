@@ -14,60 +14,37 @@ export class SpotifyAPIService {
 
   private accessToken: any;
   private tokenType: string;
+  // curl -X "GET" "https://api.spotify.com/v1/browse/new-releases?country=es" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer "
+  //original
+  // private urlSpotifyNewReleases = 'https://api.spotify.com/v1/browse/new-releases?country=es';
+  private urlSpotifyNewReleases = 'https://api.spotify.com/v1/browse/new-releases?country=';
 
   constructor(private http: HttpClient) { }
 
-  login() {
-    //No esta terminado
-    let authorizationTokenUrl = `https://accounts.spotify.com/api/token`;
-    // let authorizationTokenUrl = `/api/token`;
+  getNewReleases(code: string) {
+    //este headers es un ejemplo, no significa nada para la api de randomuser
+    const headers = new HttpHeaders({
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: Apikey.authorization// lo tipico es Autorization
+    });
 
-    let header = new HttpHeaders();
-    header.append('Authorization', 'Basic  ' + btoa(this.client_id + ':' + this.client_secret));
-    header.append('Content-Type', 'application/x-www-form-urlencoded;');
-
-    // let options = new RequestOptions({ headers: header });
-    let body = 'grant_type=client_credentials';
-
-
-    return this.http.post(authorizationTokenUrl, body).pipe(map(data => data))
-    .subscribe(result=> console.log('result', result), error=> console.log('error:',error));
-      // .do(token => {
-      //   this.accessToken = token.access_token;
-      //   this.tokenType = token.token_type;
-      // }, error => console.log(error));
-    // return this.http.post(authorizationTokenUrl, body).map(data => data.json())
-    //   .do(token => {
-    //     this.accessToken = token.access_token;
-    //     this.tokenType = token.token_type;
-    //   }, error => console.log(error));
+    //Petición con headers personalizadas
+    return this.http.get(this.urlSpotifyNewReleases + code, { headers });
+    //si quiero probar el error de la url, que salga el mensaje en pantalla
+    // return this.http.get('https://rrrandomuser.me/api/?results=1', { headers });
+    //petición normal
+    // return this.http.get('https://randomuser.me/api/?results=1');
+    // this.http.get('https://randomuser.me/api/?results=10').subscribe((data: any) => {
+    //   console.log('Aquí esta la data', data);
+    //   console.log('El nombre es:', data.results[0].name.first);
+    //   this.myUsers = data.results;
+    //   console.log('MyUsers:', this.myUsers);
+    // });
   }
 
-  // searchAlbums(title: string) {
-  //   const options = this.getOptions();
-  //   return this.http.get(`https://api.spotify.com/v1/search?query=${title}&type=album`, options)
-  //     .map(res => res.json())
-  //     .publishLast()
-  //     .refCount()
-  // }
+  getCountries() {
+    return this.http.get('https://restcountries.eu/rest/v2/all');
+  }
 
-  // loadAlbum(id) {
-  //   const options = this.getOptions();
-  //   return this.http.get(`https://api.spotify.com/v1/albums/${id}`, options)
-  //     .map(res => res.json())
-  //     .publishLast()
-  //     .refCount()
-  // }
-
-
-  // private getOptions() {
-  //   console.log(this.accessToken);
-  //   console.log(this.tokenType);
-
-  //   let header = new Headers();
-  //   header.append('Authorization', this.tokenType + ' ' + this.accessToken);
-  //   // let options = new RequestOptions({ headers: header });
-
-  //   return header;
-  // }
 }
